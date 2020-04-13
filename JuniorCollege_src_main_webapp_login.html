@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="/poi/css/login.css">
+    <script type="text/javascript" src="/poi/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/poi/js/index.js"></script>
+    <script src="/poi/js/layui.js" charset="utf-8"></script>
+</head>
+<body class="login-bg">
+<canvas id="fullstarbg" style="background: url(img/bg.jpg)">你的浏览器不支持canvas标签</canvas>
+<div class="login">
+    <div class="message">青年大学习截图系统登录</div>
+    <div id="darkbannerwrap"></div>
+    <form method="post" class="layui-form" id="login">
+        <input v-model="Name" placeholder="用户名" type="text" lay-verify="required" class="layui-input">
+        <hr class="hr15">
+        <input v-model="Pwd" lay-verify="required" placeholder="密码" type="password" class="layui-input">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="button" @click="submit">
+        <hr class="hr20">
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<!-- 底部结束 -->
+<script>
+    const login = new Vue({
+        el: "#login",
+        data: {
+            Name: "",
+            Pwd: ""
+        },
+        methods: {
+            submit() {
+                this.$http.post("/poi/login.do", {"Name": this.Name, "Pwd": this.Pwd}, {emulateJSON: true}).then(
+                    function (rs) {
+                        if (rs.body) {
+                            alert("登录成功")
+                            window.location.href = "/poi/show.html"
+                        } else {
+                            alert("登录失败")
+                        }
+                    },
+                    function (err) {
+                        console.log(err);
+                        alert("请求数据失败！请重试!")
+                    }
+                )
+            }
+        }
+    })
+</script>
+</body>
+</html>

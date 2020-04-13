@@ -1,0 +1,149 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>截图上传</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="am-g myapp-login">
+    <div class="myapp-login-logo-block">
+        <div class="myapp-login-logo-text">
+            <div class="myapp-login-logo-text">
+                青年大学习截图上传<span>&</span>姓名
+
+            </div>
+        </div>
+
+        <div class="login-font">
+            <i>姓名 </i> or <span> 截图</span>
+        </div>
+        <div class="am-u-sm-10 login-am-center">
+            <form class="am-form" id="app" action="/poi/insert.do" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <div class="am-form-group">
+                        <select name="ClassName" @change="getClassName($event)" id="mySelect">
+                            <option v-show="isShow" id="opt">请选择你的班级</option>
+                            <option v-for="item in ClassNames" :value="item.id">{{item.ClassName}}</option>
+                        </select>
+                    </div>
+
+                    <div class="am-form-group">
+                        <input type="text" v-model="userName" id="doc-ipt-email-1" placeholder="请输入姓名"
+                               @change="isName">
+                    </div>
+                    <div class="am-form-group">
+                        <input v-model="imageName" type="file" @change="getFile($event)" class=""
+                               id="doc-ipt-pwd-1"
+                               placeholder="请输入青年大学习截图"
+                               width="400px">
+                    </div>
+                    <p>
+                        <button type="button" class="am-btn am-btn-default" @click="submit($event)">提交截图</button>
+                    </p>
+                </fieldset>
+            </form>
+
+            <div style="text-align: center;margin-top: 200px;color: #fff;font-size: 20px;">
+                <span>版本号 ：1 . 0 . 4</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="js/amazeui.min.js"></script>
+<script src="js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</body>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            ClassNames: [],
+            userName: "",
+            imageName: "",
+            adminId: 0,
+            isShow: true
+        },
+        methods: {
+            getFile(event) {
+                this.imageName = event.target.files[0];
+                console.log(this.imageName);
+            },
+            isName() {
+                this.$http.post("/poi/isName.do", {
+                    "userName": this.userName,
+                    "adminId": this.adminId
+                }, {emulateJSON: true}).then(
+                    function (rs) {
+                        if (!rs.body) {
+                            alert("你输入的姓名不存在！")
+                            this.userName = '';
+                        }
+                    }
+                )
+            },
+            submit(event) {
+                if (this.userName == null || this.userName == '') {
+                    alert('请输入姓名');
+                    return;
+                }
+                if (this.imageName == null || this.imageName == '') {
+                    alert('请上传截图');
+                    return;
+                }
+                event.preventDefault();
+                let formData = new FormData();
+                formData.append('userName', this.userName);
+                formData.append('imageName', this.imageName);
+                formData.append('adminId', this.adminId);
+                const config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                console.log(formData)
+                this.$http.post("/poi/insert.do", formData, config).then(
+                    function (rs) {
+                        if (rs.body) {
+                            alert("提交截图成功");
+                            return;
+                        }
+                        alert("提交截图失败")
+                    }
+                )
+            },
+            getClassName(e) {
+                var adminId = jQuery("#mySelect option:selected").val(); //获取选中的项
+                this.adminId = adminId;
+                this.isShow = false;
+            }
+        },
+        mounted() {
+            this.$http.post("/poi/ClassName.do").then(
+                function (rs) {
+                    console.log(rs.body)
+                    this.ClassNames = rs.body;
+                }
+            )
+        }
+    })
+</script>
+</html>
