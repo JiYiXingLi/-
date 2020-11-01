@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-11-01T07:55:05.996Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" etag="o32RpSYcqk4ydSRMRk4_" version="13.8.8" type="github" pages="13">
+<mxfile host="app.diagrams.net" modified="2020-11-01T07:56:44.238Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" etag="BdGUnG5GmtOh_eZhOlXg" version="13.8.8" type="github" pages="13">
   <diagram id="ZnC_wVVefbgloW7a9_vj" name="第 1 页">
     <mxGraphModel dx="509" dy="565" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -806,6 +806,9 @@
       <root>
         <mxCell id="Qsfu9IO_39fTZro1VGdH-0" />
         <mxCell id="Qsfu9IO_39fTZro1VGdH-1" parent="Qsfu9IO_39fTZro1VGdH-0" />
+        <mxCell id="Qsfu9IO_39fTZro1VGdH-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="Qsfu9IO_39fTZro1VGdH-1" source="Qsfu9IO_39fTZro1VGdH-2" target="Qsfu9IO_39fTZro1VGdH-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="Qsfu9IO_39fTZro1VGdH-2" value="点击发送邮件按钮" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="Qsfu9IO_39fTZro1VGdH-1">
           <mxGeometry x="344.5" y="267" width="120" height="60" as="geometry" />
         </mxCell>
@@ -820,6 +823,9 @@
         </mxCell>
         <mxCell id="Qsfu9IO_39fTZro1VGdH-4" value="输入需要发送的内容" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="Qsfu9IO_39fTZro1VGdH-1">
           <mxGeometry x="344.5" y="163" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Qsfu9IO_39fTZro1VGdH-8" value="读取配置文件，获取邮箱账号" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="Qsfu9IO_39fTZro1VGdH-1">
+          <mxGeometry x="344.5" y="364" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
